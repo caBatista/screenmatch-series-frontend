@@ -8,7 +8,7 @@ const fichaDescricao = document.getElementById('ficha-descricao');
 
 // Função para carregar temporadas
 function carregarTemporadas() {
-    getDados(`/series/${serieId}/temporadas/todas`)
+    getDados(`/series/${serieId}/seasons/all`)
         .then(data => {
             const temporadasUnicas = [...new Set(data.map(temporada => temporada.temporada))];
             listaTemporadas.innerHTML = ''; // Limpa as opções existentes
@@ -37,7 +37,7 @@ function carregarTemporadas() {
 
 // Função para carregar episódios de uma temporada
 function carregarEpisodios() {
-    getDados(`/series/${serieId}/temporadas/${listaTemporadas.value}`)
+    getDados(`/series/${serieId}/seasons/${listaTemporadas.value}`)
         .then(data => {
             const temporadasUnicas = [...new Set(data.map(temporada => temporada.temporada))];
             fichaSerie.innerHTML = ''; 
@@ -72,13 +72,13 @@ function carregarInfoSerie() {
     getDados(`/series/${serieId}`)
         .then(data => {
             fichaDescricao.innerHTML = `
-                <img src="${data.poster}" alt="${data.titulo}" />
+                <img src="${data.poster}" alt="${data.title}" />
                 <div>
-                    <h2>${data.titulo}</h2>
+                    <h2>${data.title}</h2>
                     <div class="descricao-texto">
-                        <p><b>Média de avaliações:</b> ${data.avaliacao}</p>
-                        <p>${data.sinopse}</p>
-                        <p><b>Estrelando:</b> ${data.atores}</p>
+                        <p><b>Média de avaliações:</b> ${data.rating}</p>
+                        <p>${data.plot}</p>
+                        <p><b>Estrelando:</b> ${data.actors}</p>
                     </div>
                 </div>
             `;

@@ -73,7 +73,7 @@ categoriaSelect.addEventListener('change', function () {
 // Array de URLs para as solicitações
 geraSeries();
 function geraSeries() {
-    const urls = ['/series/top5', '/series/lancamentos', '/series'];
+    const urls = ['/series/top5', '/series/latest', '/series'];
 
     // Faz todas as solicitações em paralelo
     Promise.all(urls.map(url => getDados(url)))

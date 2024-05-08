@@ -56,7 +56,7 @@ categoriaSelect.addEventListener('change', async function handleMudancaCategoria
         limparElementos();
         // Faça uma solicitação para o endpoint com a categoria selecionada
         try {
-            const data = await getDados(`/series/categoria/${categoriaSelecionada}`);
+            const data = await getDados(`/series/genre/${categoriaSelecionada}`);
             criarListaFilmes(categoria, data);
         } catch (error) {
             lidarComErro("Ocorreu um erro ao carregar os dados da categoria.");
