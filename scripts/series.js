@@ -29,6 +29,11 @@ function loadSeasons() {
             allOption.value = 'all';
             allOption.textContent = 'All seasons'
             seasonsList.appendChild(allOption); 
+
+            const topEpisodesOption = document.createElement('option');
+            topEpisodesOption.value = 'top';
+            topEpisodesOption.textContent = 'Top episodes'
+            seasonsList.appendChild(topEpisodesOption);
         })
         .catch(error => {
             console.error('Error when getting seasons:', error);
@@ -37,34 +42,64 @@ function loadSeasons() {
 
 // Function to load episodes of a season
 function loadEpisodes() {
-    getData(`/series/${seriesId}/seasons/${seasonsList.value}`)
-        .then(data => {
-            const uniqueSeasons = [...new Set(data.map(season => season.season))];
-            seriesDetails.innerHTML = ''; 
-            uniqueSeasons.forEach(season => {
+    var selectedOption = seasonsList.value;
+    seriesDetails.innerHTML = '';
+
+    if(selectedOption === 'top') {
+        getData(`/series/${seriesId}/top`)
+            .then(episodes => {
                 const ul = document.createElement('ul');
                 ul.className = 'episodes-list';
 
-                const currentEpisodes = data.filter(series => series.season === season);
+                const htmlList = episodes.map(episode => `
+                        <li>
+                            Season ${episode.season} - Episode ${episode.episodeNumber}: ${episode.title} - Rating ${episode.rating}
+                        </li>
+                    `).join('');
 
-                const htmlList = currentEpisodes.map(series => `
-                    <li>
-                        ${series.episodeNumber} - ${series.title}
-                    </li>
-                `).join('');
                 ul.innerHTML = htmlList;
-                
                 const paragrath = document.createElement('p');
                 const linha = document.createElement('br');
-                paragrath.textContent = `Season ${season}`;
+                paragrath.textContent = `Top 5 episodes:`;
                 seriesDetails.appendChild(paragrath);
                 seriesDetails.appendChild(linha);
                 seriesDetails.appendChild(ul);
-            });
-        })
-        .catch(error => {
-            console.error('Error when getting episodes:', error);
-        });
+            })
+            .catch(error => {
+                console.error('Error when getting top episodes:', error);
+            }
+        );
+    } else {
+        getData(`/series/${seriesId}/seasons/${seasonsList.value}`)
+            .then(data => {
+                const uniqueSeasons = [...new Set(data.map(season => season.season))];
+                 
+                uniqueSeasons.forEach(season => {
+                    const ul = document.createElement('ul');
+                    ul.className = 'episodes-list';
+
+                    const currentEpisodes = data.filter(series => series.season === season);
+
+                    const htmlList = currentEpisodes.map(series => `
+                        <li>
+                            ${series.episodeNumber} - ${series.title}
+                        </li>
+                    `).join('');
+                    ul.innerHTML = htmlList;
+                    
+                    const paragrath = document.createElement('p');
+                    const linha = document.createElement('br');
+                    paragrath.textContent = `Season ${season}`;
+                    seriesDetails.appendChild(paragrath);
+                    seriesDetails.appendChild(linha);
+                    seriesDetails.appendChild(ul);
+                });
+            })
+            .catch(error => {
+                console.error('Error when getting episodes:', error);
+            }
+        );
+    }
 }
 
 // Function to load series information
