@@ -24,12 +24,13 @@ body {
 }
 
 .episodes-list {
-    height: 25vh;
+    max-height: 25vh;
     display: flex;
     flex-direction: column;
     gap: 1em;
     flex-wrap: wrap;
     list-style-type: none;
+    margin-bottom: 20px;
 }
 
 h2 {
