@@ -40,7 +40,7 @@ const categorySelect = document.querySelector('[data-categories]');
 const sectionsToHide = document.querySelectorAll('.section'); // Add the class 'hidden' to hide the sections
 
 categorySelect.addEventListener('change', function () {
-    const category = document.querySelector('[data-name="categories"]');
+    const category = document.querySelector('[data-name="category"]');
     const selectedCategory = categorySelect.value;
 
     if (selectedCategory === 'all') {
