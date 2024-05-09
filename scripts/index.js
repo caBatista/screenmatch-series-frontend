@@ -1,25 +1,25 @@
 import getData from "./getData.js";
 
-// Mapeia os elementos DOM que você deseja atualizar
+// Maps the DOM elements to variables
 const elements = {
     top5: document.querySelector('[data-name="top5"]'),
     latest: document.querySelector('[data-name="latest"]'),
     series: document.querySelector('[data-name="series"]')
 };
 
-// Função para criar a lista de filmes
+// Function to create the series list
 function createSeriesList(element, dados) {
-    // Verifique se há um elemento <ul> dentro da seção
+    // Check if there is an existing <ul> element inside the section
     const existingUl = element.querySelector('ul');
 
-    // Se um elemento <ul> já existe dentro da seção, remova-o
+    // If there is, remove it
     if (existingUl) {
         element.removeChild(existingUl);
     }
 
     const ul = document.createElement('ul');
-    ul.className = 'lista';
-    const listaHTML = dados.map((filme) => `
+    ul.className = 'list';
+    const htmlList = dados.map((filme) => `
         <li>
             <a href="/details.html?id=${filme.id}">
                 <img src="${filme.poster}" alt="${filme.titulo}">
@@ -27,17 +27,17 @@ function createSeriesList(element, dados) {
         </li>
     `).join('');
 
-    ul.innerHTML = listaHTML;
+    ul.innerHTML = htmlList;
     element.appendChild(ul);
 }
 
-// Função genérica para tratamento de erros
+// Generic function to handle errors
 function handleError(errorMessage) {
     console.error(errorMessage);
 }
 
 const categorySelect = document.querySelector('[data-categories]');
-const sectionsToHide = document.querySelectorAll('.section'); // Adicione a classe CSS 'hide-when-filtered' às seções e títulos que deseja ocultar.
+const sectionsToHide = document.querySelectorAll('.section'); // Add the class 'hidden' to hide the sections
 
 categorySelect.addEventListener('change', function () {
     const category = document.querySelector('[data-name="categories"]');
@@ -57,7 +57,7 @@ categorySelect.addEventListener('change', function () {
         }
 
         category.classList.remove('hidden')
-        // Faça uma solicitação para o endpoint com a categoria selecionada
+        // Make the request to get the series of the selected category
         getData(`/series/categories/${selectedCategory}`)
             .then(data => {
                 createSeriesList(category, data);
@@ -68,12 +68,12 @@ categorySelect.addEventListener('change', function () {
     }
 });
 
-// Array de URLs para as solicitações
+// Function to generate the series
 generateSeries();
 function generateSeries() {
     const urls = ['/series/top5', '/series/latest', '/series'];
 
-    // Faz todas as solicitações em paralelo
+    // Make the requests parallelly
     Promise.all(urls.map(url => getData(url)))
         .then(data => {
             createSeriesList(elements.top5, data[0]);
