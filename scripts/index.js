@@ -8,7 +8,7 @@ const elements = {
 };
 
 // Function to create the series list
-function createSeriesList(element, dados) {
+function createSeriesList(element, data) {
     // Check if there is an existing <ul> element inside the section
     const existingUl = element.querySelector('ul');
 
@@ -19,7 +19,7 @@ function createSeriesList(element, dados) {
 
     const ul = document.createElement('ul');
     ul.className = 'list';
-    const htmlList = dados.map((filme) => `
+    const htmlList = data.map((filme) => `
         <li>
             <a href="/details.html?id=${filme.id}">
                 <img src="${filme.poster}" alt="${filme.titulo}">
@@ -60,7 +60,11 @@ categorySelect.addEventListener('change', function () {
         // Make the request to get the series of the selected category
         getData(`/series/categories/${selectedCategory}`)
             .then(data => {
-                createSeriesList(category, data);
+                if (Array.isArray(data)) {
+                    createSeriesList(category, data);
+                } else {
+                    console.error('Expected array but received:', data);
+                }
             })
             .catch(error => {
                 handleError("An error occurred while loading the category data.");

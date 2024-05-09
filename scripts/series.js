@@ -77,6 +77,7 @@ function loadSeriesInfo() {
                     <h2>${data.title}</h2>
                     <div class="description-card">
                         <p><b>Rating:</b> ${data.rating}</p>
+                        <p><b>Genre:</b> ${data.genre}</p>
                         <p>${data.plot}</p>
                         <p><b>Cast:</b> ${data.actors}</p>
                     </div>
