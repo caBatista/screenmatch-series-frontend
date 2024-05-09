@@ -21,7 +21,7 @@ function createSeriesList(element, dados) {
     ul.className = 'lista';
     const listaHTML = dados.map((filme) => `
         <li>
-            <a href="/detalhes.html?id=${filme.id}">
+            <a href="/details.html?id=${filme.id}">
                 <img src="${filme.poster}" alt="${filme.titulo}">
             </a>
         </li>
