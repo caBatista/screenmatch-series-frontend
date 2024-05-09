@@ -43,7 +43,7 @@ function loadEpisodes() {
             seriesDetails.innerHTML = ''; 
             uniqueSeasons.forEach(season => {
                 const ul = document.createElement('ul');
-                ul.className = 'episodios-lista';
+                ul.className = 'episodes-list';
 
                 const currentEpisodes = data.filter(series => series.season === season);
 
