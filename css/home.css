@@ -39,18 +39,18 @@ main {
     padding: 0 3em;
 }
 
-.cabecalho {
+.header {
     display: flex;
     justify-content: space-between;
     padding: 1em 3em;
 }
 
-.cabecalho__logo {
+.header__logo {
     display: flex;
     gap: 1em;
 }
 
-.cabecalho__logo img {
+.header__logo img {
     width: 150px;
     height: 50px;
 }
@@ -60,7 +60,7 @@ main {
     font-size: 48px
 }
 
-.lista {
+.list {
     list-style-type: none;
     margin: 1em 0;
     display: grid;
@@ -69,7 +69,7 @@ main {
     gap: 1em;
 }
 
-.lista li img {
+.list li img {
     width: 300px;
     height: 444px;
 }
@@ -80,7 +80,7 @@ main {
 }
 
 @media screen and (max-width: 1600px) {
-    .lista {
+    .list {
         overflow: hidden;
         overflow-x: scroll;
     }
